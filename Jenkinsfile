@@ -10,6 +10,7 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh 'chmod +x mvnw'
                 sh './mvnw clean compile'
             }
         }
@@ -30,6 +31,24 @@ pipeline {
             steps {
                 sh 'java -jar target/MyJavaApp-0.0.1-SNAPSHOT.jar &'
             }
+        }
+
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed. Check logs.'
         }
     }
 }
