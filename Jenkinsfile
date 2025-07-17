@@ -28,7 +28,7 @@ pipeline {
 
         stage('Run') {
             steps {
-                sh 'java -jar target/MySpringBootApp-0.0.1-SNAPSHOT.jar &'
+                sh 'java -jar target/MyJavaApp-0.0.1-SNAPSHOT.jar &'
             }
         }
     }
